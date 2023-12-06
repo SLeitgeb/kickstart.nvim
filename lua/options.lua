@@ -60,4 +60,8 @@ vim.o.colorcolumn = "80"
 vim.o.splitbelow = true
 vim.o.splitright = true
 
+-- fuzzy find for :find
+vim.o.path = vim.o.path .. '**'
+vim.o.wildmenu = true
+
 -- vim: ts=2 sts=2 sw=2 et
