@@ -27,8 +27,8 @@ vim.keymap.set('n', '<Leader>P', [["*p]])
 vim.keymap.set('n', '<Leader>y', [["+y]])
 vim.keymap.set('n', '<Leader>p', [["+p]])
 
-vim.keymap.set('n', '<F9>', ':Neotree filesystem reveal left<CR>')
-vim.keymap.set('n', '<F10>', ':Neotree toggle<CR>')
+vim.keymap.set('n', '<F9>', ':Neotree filesystem reveal float<CR>')
+vim.keymap.set('n', '<F10>', ':Neotree float toggle<CR>')
 
 -- Use X in visual mode to search for selected text
 -- taken from: http://vimdoc.sourceforge.net/htmldoc/visual.html#visual-search
