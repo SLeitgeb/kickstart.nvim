@@ -27,5 +27,14 @@ return {
   { 'tummetott/unimpaired.nvim',    opts = {} },
   { 'simrat39/rust-tools.nvim',     ft = 'rust' },
   { 'mfussenegger/nvim-dap-python', ft = 'python' },
+  {
+    'saecki/crates.nvim',
+    ft = { 'rust', 'toml' },
+    config = function(_, opts)
+      local crates = require('crates')
+      crates.setup(opts)
+      crates.show()
+    end,
+  },
   'theHamsta/nvim-dap-virtual-text',
 }
