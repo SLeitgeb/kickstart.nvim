@@ -20,9 +20,6 @@ vim.o.mouse = 'a'
 --  See `:help 'clipboard'`
 -- vim.o.clipboard = 'unnamedplus'
 
--- Enable break indent
-vim.o.breakindent = true
-
 -- Yoink from ThePrimeagen
 vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir"
 
@@ -49,6 +46,11 @@ vim.o.termguicolors = true
 -- I like word wrap, sue me
 vim.o.wrap = true
 vim.o.linebreak = true
+
+-- Enable break indent
+vim.o.breakindent = true
+
+vim.o.tabstop = 4
 
 -- Don't allow less than 8 lines above or below cursor for file context
 vim.o.scrolloff = 8
