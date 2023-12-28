@@ -79,6 +79,8 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set("n", "<leader>git", vim.cmd.Git)
+-- from: https://vim.fandom.com/wiki/Set_working_directory_to_the_current_file
+vim.keymap.set("n", "<leader>cd", "<cmd>cd %:p:h<CR>:pwd<CR>", { desc = "[c]hange [d]irectory to the current file" })
 
 vim.keymap.set("n", "<leader>zz", function()
   require("zen-mode").setup {
