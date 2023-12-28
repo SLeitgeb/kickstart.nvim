@@ -50,9 +50,6 @@ require('lazy-bootstrap')
 -- [[ Configure plugins ]]
 require('lazy-plugins')
 
--- [[ Setting options ]]
-require('options')
-
 -- [[ Keymaps ]]
 require('keymaps')
 
@@ -70,6 +67,9 @@ require('setup-lsp')
 
 -- [[ Configure nvim-cmp ]]
 require('setup-cmp')
+
+-- [[ Setting options ]]
+require('options')
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
