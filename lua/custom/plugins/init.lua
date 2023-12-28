@@ -12,7 +12,14 @@ return {
   'knubie/vim-kitty-navigator',
   'tpope/vim-surround',
   'tpope/vim-abolish',
-  'theprimeagen/harpoon',
+  {
+    'theprimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    opts = {},
+  },
   'mbbill/undotree',
   'folke/zen-mode.nvim',
   -- 'folke/trouble.nvim',

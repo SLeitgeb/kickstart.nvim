@@ -44,16 +44,19 @@ vim.keymap.set('i', '<S-CR>', '<Esc>O')
 -- vim.keymap.set('i', '<C-\\>', '<Esc>O')
 
 -- harpoon config
-local harpoon_mark = require("harpoon.mark")
-local harpoon_ui = require("harpoon.ui")
+-- local harpoon_mark = require("harpoon.mark")
+-- local harpoon_ui = require("harpoon.ui")
+local harpoon = require("harpoon")
+-- harpoon:setup() -- called in lua/custom/plugins/init.lua
 
-vim.keymap.set("n", "<leader>ha", harpoon_mark.add_file, { desc = '[H]arpoon [a]dd file' })
-vim.keymap.set("n", "<C-e>", harpoon_ui.toggle_quick_menu)
+vim.keymap.set("n", "<leader>ha", function() harpoon:list():append() end, { desc = '[H]arpoon [a]dd file' })
+vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
-vim.keymap.set("n", "<M-1>", function() harpoon_ui.nav_file(1) end)
-vim.keymap.set("n", "<M-2>", function() harpoon_ui.nav_file(2) end)
-vim.keymap.set("n", "<M-3>", function() harpoon_ui.nav_file(3) end)
-vim.keymap.set("n", "<M-4>", function() harpoon_ui.nav_file(4) end)
+vim.keymap.set("n", "<M-1>", function() harpoon:list():select(1) end)
+vim.keymap.set("n", "<M-2>", function() harpoon:list():select(2) end)
+vim.keymap.set("n", "<M-3>", function() harpoon:list():select(3) end)
+vim.keymap.set("n", "<M-4>", function() harpoon:list():select(4) end)
+vim.keymap.set("n", "<M-5>", function() harpoon:list():select(5) end)
 
 -- Yoink from ThePrimeagen
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
