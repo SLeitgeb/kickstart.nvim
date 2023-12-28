@@ -8,6 +8,8 @@
 -- maybe: https://github.com/folke/todo-comments.nvim
 return {
   'christoomey/vim-sort-motion',
+  -- 'christoomey/vim-tmux-navigator',
+  'knubie/vim-kitty-navigator',
   'tpope/vim-surround',
   'tpope/vim-abolish',
   'theprimeagen/harpoon',
