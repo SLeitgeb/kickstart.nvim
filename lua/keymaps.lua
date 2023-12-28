@@ -33,7 +33,7 @@ vim.keymap.set('n', '<F10>', ':Neotree toggle left<CR>')
 -- Use X in visual mode to search for selected text
 -- taken from: http://vimdoc.sourceforge.net/htmldoc/visual.html#visual-search
 -- and https://stackoverflow.com/questions/4848254/vim-search-pattern-for-a-piece-of-text-line-yanked-in-visual-mode
-vim.keymap.set('n', 'X', 'y/<C-r>"<CR>')
+vim.keymap.set('v', 'X', 'y/<C-r>"<CR>')
 
 vim.keymap.set('n', '<leader>d', ':set background=dark<CR>')
 vim.keymap.set('n', '<leader>l', ':set background=light<CR>')
