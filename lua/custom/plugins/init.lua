@@ -12,6 +12,7 @@ return {
   'knubie/vim-kitty-navigator',
   'tpope/vim-surround',
   'tpope/vim-abolish',
+  'tpope/vim-repeat',
   {
     'theprimeagen/harpoon',
     branch = 'harpoon2',
