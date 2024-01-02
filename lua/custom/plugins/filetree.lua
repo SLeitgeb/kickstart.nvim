@@ -29,7 +29,6 @@ return {
       },
       components = {
         harpoon_index = function(config, node, state)
-          -- local Marked = require("harpoon.mark")
           local harpoon = require("harpoon")
           local path = node:get_id()
           local success, index = pcall(function(p) harpoon:list():get_by_display(p) end, path)
@@ -55,12 +54,11 @@ return {
     })
     if vim.fn.argc() == 0 then
       vim.api.nvim_create_autocmd("VimEnter", {
-        -- command = "set nornu nonu | Neotree position=current",
         command = "set cursorline | Neotree position=current",
       })
-      -- vim.api.nvim_create_autocmd("BufEnter", {
-      --   command = "set rnu nu",
-      -- })
+      vim.api.nvim_create_autocmd("BufEnter", {
+        command = "set wrap",
+      })
     end
   end,
 }
