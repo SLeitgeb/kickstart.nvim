@@ -37,4 +37,5 @@ return {
     end,
   },
   'theHamsta/nvim-dap-virtual-text',
+  'farmergreg/vim-lastplace',
 }
