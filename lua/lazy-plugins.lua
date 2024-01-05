@@ -65,10 +65,34 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
+        local gs = package.loaded.gitsigns
+        local function map(mode, l, r, opts)
+          opts = opts or {}
+          opts.buffer = bufnr
+          vim.keymap.set(mode, l, r, opts)
+        end
+
+        -- Actions
+        map('n', '<leader>hs', gs.stage_hunk, { desc = 'Stage hunk' })
+        map('n', '<leader>hr', gs.reset_hunk, { desc = 'Reset hunk' })
+        map('v', '<leader>hs', function() gs.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end,
+          { desc = 'Stage hunk' })
+        map('v', '<leader>hr', function() gs.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end,
+          { desc = 'Reset hunk' })
+        map('n', '<leader>hS', gs.stage_buffer, { desc = 'Stage buffer' })
+        map('n', '<leader>hu', gs.undo_stage_hunk, { desc = 'Undo hunk stage' })
+        map('n', '<leader>hR', gs.reset_buffer, { desc = 'Reset staged buffer' })
+        map('n', '<leader>hb', function() gs.blame_line { full = true } end, { desc = 'Blame line' })
+        map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = 'Toggle line blame' })
+        map('n', '<leader>hd', gs.diffthis, { desc = 'Diff hunk' })
+        map('n', '<leader>hD', function() gs.diffthis('~') end, { desc = 'Diff against HEAD' })
+        map('n', '<leader>td', gs.toggle_deleted, { desc = 'Toggle deleted' })
+        map('n', '<leader>hp', gs.preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
+
+        -- Text object
+        map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 
         -- don't override the built-in and fugitive keymaps
-        local gs = package.loaded.gitsigns
         vim.keymap.set({ 'n', 'v' }, ']c', function()
           if vim.wo.diff then
             return ']c'
