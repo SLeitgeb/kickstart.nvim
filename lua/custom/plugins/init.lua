@@ -25,7 +25,8 @@ return {
   'folke/zen-mode.nvim',
   -- 'folke/trouble.nvim',
   -- 'nvim-treesitter/playground',
-  { 'tummetott/unimpaired.nvim',    opts = {} },
+  -- { 'tummetott/unimpaired.nvim',    opts = {} },
+  'tpope/vim-unimpaired',
   { 'simrat39/rust-tools.nvim',     ft = 'rust' },
   { 'mfussenegger/nvim-dap-python', ft = 'python' },
   {
