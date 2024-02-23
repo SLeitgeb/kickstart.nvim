@@ -94,7 +94,15 @@ local servers = {
   tsserver = {},
   eslint = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
-
+  ltex = {
+    ltex = {
+      language = "en-GB",
+      additionalRules = {
+        -- dependency: `paru -S languagetool-ngrams-en`
+        languageModel = "/usr/share/ngrams/",
+      },
+    },
+  },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
