@@ -8,13 +8,10 @@ return {
         -- lua = {
         --   require('formatter.filetypes.lua').stylua
         -- },
-        python = {
-          require('formatter.filetypes.python').black
-        },
         ['*'] = {
-          require('formatter.filetypes.any').remove_trailing_whitespace
-        }
-      }
+          require('formatter.filetypes.any').remove_trailing_whitespace,
+        },
+      },
     })
   end
 }
