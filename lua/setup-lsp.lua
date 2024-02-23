@@ -92,6 +92,7 @@ local servers = {
     }
   },
   tsserver = {},
+  eslint = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
 
   lua_ls = {
