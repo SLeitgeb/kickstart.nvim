@@ -23,6 +23,13 @@ return {
   },
   'mbbill/undotree',
   'folke/zen-mode.nvim',
+  {
+    'folke/todo-comments.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = {
+      signs = false,
+    },
+  },
   -- 'folke/trouble.nvim',
   -- 'nvim-treesitter/playground',
   -- { 'tummetott/unimpaired.nvim',    opts = {} },
