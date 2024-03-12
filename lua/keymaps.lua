@@ -75,8 +75,8 @@ vim.keymap.set({ "n", "v" }, "<leader>u", vim.cmd.UndotreeToggle)
 -- vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-vim.keymap.set("n", "<leader>F", vim.lsp.buf.format)
-vim.keymap.set("n", "<leader>f", "<cmd>Format<CR>")
+vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+vim.keymap.set("n", "<leader>F", "<cmd>Format<CR>")
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set("n", "<leader>git", vim.cmd.Git)
