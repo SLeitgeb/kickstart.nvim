@@ -125,6 +125,7 @@ local servers = {
   --     }
   --   }
   -- },
+  ruff_lsp = {},
   tsserver = {},
   eslint = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
@@ -152,6 +153,7 @@ local servers = {
       },
     }
   },
+  yamlls = {},
 }
 
 -- mason-lspconfig requires that these setup functions are called in this order
@@ -189,19 +191,20 @@ require('lspconfig').pylsp.setup {
     pylsp = {
       plugins = {
         -- formatter options
-        black = { enabled = true },
+        black = { enabled = false },
         autopep8 = { enabled = false },
         yapf = { enabled = false },
         -- import sorting
-        pyls_isort = { enabled = true },
+        pyls_isort = { enabled = false },
         -- linter options
-        pylint = { enabled = true },
+        pylint = { enabled = false },
         pyflakes = { enabled = false },
         pycodestyle = { enabled = false },
-        -- type checker
-        pylsp_mypy = { enabled = true },
         -- auto-completion options
-        jedi_completion = { fuzzy = true },
+        rope_autoimport = { enabled = false },
+        rope_completion = { enabled = false },
+        jedi_completion = { enabled = true, fuzzy = true },
+        mccabe = { threshold = 30 },
       },
     }
   },
