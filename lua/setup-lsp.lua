@@ -184,6 +184,7 @@ require('mason-lspconfig').setup {
   }
 }
 
+-- Set up pylsp separately to avoid using Mason instance
 require('lspconfig').pylsp.setup {
   capabilities = capabilities,
   -- cmd = { 'pylsp' },
@@ -195,13 +196,13 @@ require('lspconfig').pylsp.setup {
         autopep8 = { enabled = false },
         yapf = { enabled = false },
         -- import sorting
-        pyls_isort = { enabled = false },
+        pyls_isort = { enabled = true },
         -- linter options
         pylint = { enabled = false },
         pyflakes = { enabled = false },
         pycodestyle = { enabled = false },
         -- auto-completion options
-        rope_autoimport = { enabled = false },
+        rope_autoimport = { enabled = true },
         rope_completion = { enabled = false },
         jedi_completion = { enabled = true, fuzzy = true },
         mccabe = { threshold = 30 },
