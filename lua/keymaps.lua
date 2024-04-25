@@ -94,6 +94,7 @@ vim.keymap.set("n", "<leader>zz", function()
     },
   }
   require("zen-mode").toggle()
+  vim.opt.colorcolumn = "0"
 end)
 
 vim.keymap.set("n", "<leader>zn", function()
