@@ -29,7 +29,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- See `:help K` for why this keymap
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-    nmap('<M-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+    nmap('<A-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
     -- Lesser used LSP functionality
     nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -125,7 +125,11 @@ local servers = {
   --     }
   --   }
   -- },
-  ruff_lsp = {},
+  ruff_lsp = {
+    settings = {
+      organizeImports = true
+    }
+  },
   tsserver = {},
   eslint = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
@@ -206,6 +210,7 @@ require('lspconfig').pylsp.setup {
         rope_completion = { enabled = false },
         jedi_completion = { enabled = true, fuzzy = true },
         mccabe = { threshold = 30 },
+        -- pylsp_mypy = { enabled = false },
       },
     }
   },
