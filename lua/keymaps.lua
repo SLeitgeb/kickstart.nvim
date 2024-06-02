@@ -83,6 +83,13 @@ vim.keymap.set("n", "<leader>git", vim.cmd.Git)
 -- from: https://vim.fandom.com/wiki/Set_working_directory_to_the_current_file
 vim.keymap.set("n", "<leader>cd", "<cmd>cd %:p:h<CR>:pwd<CR>", { desc = "[c]hange [d]irectory to the current file" })
 
+-- I often git the closing bracket key just above Enter when saving a file, writing to a file called `]` instead of the current file.
+-- vim.keymap.set("ca", "w]", "w")
+-- vim.keymap.set("cnorea", "w]", "w")
+vim.cmd.cnoreabbrev("w] w")
+vim.cmd.cnoreabbrev("w[ w")
+vim.cmd.cnoreabbrev("w\\ w")
+
 vim.keymap.set("n", "<leader>zz", function()
   require("zen-mode").setup {
     window = {
