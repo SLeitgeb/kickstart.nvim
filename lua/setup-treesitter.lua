@@ -64,6 +64,15 @@ vim.defer_fn(function()
         },
       },
     },
+    refactor = {
+      navigation = {
+        enable = true,
+        keymaps = {
+          goto_next_usage = '<A-n>',
+          goto_previous_usage = '<A-p>',
+        }
+      }
+    },
   }
 end, 0)
 
