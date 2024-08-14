@@ -125,11 +125,12 @@ local servers = {
   --     }
   --   }
   -- },
-  ruff_lsp = {
-    settings = {
-      organizeImports = true
-    }
-  },
+  -- ruff_lsp = {
+  --   filetypes = { 'python' },
+  --   settings = {
+  --     organizeImports = true
+  --   }
+  -- },
   tsserver = {},
   eslint = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
@@ -206,9 +207,9 @@ require('lspconfig').pylsp.setup {
         pyflakes = { enabled = false },
         pycodestyle = { enabled = false },
         -- auto-completion options
-        rope_autoimport = { enabled = true },
+        rope_autoimport = { enabled = false },
         rope_completion = { enabled = false },
-        jedi_completion = { enabled = true, fuzzy = true },
+        jedi_completion = { enabled = true, fuzzy = false },
         mccabe = { threshold = 30 },
         -- pylsp_mypy = { enabled = false },
       },
