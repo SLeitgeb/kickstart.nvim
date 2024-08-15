@@ -49,7 +49,7 @@ vim.keymap.set('i', '<S-CR>', '<Esc>O')
 local harpoon = require("harpoon")
 -- harpoon:setup() -- called in lua/custom/plugins/init.lua
 
-vim.keymap.set("n", "<leader>ha", function() harpoon:list():append() end, { desc = '[H]arpoon [a]dd file' })
+vim.keymap.set("n", "<leader>ha", function() harpoon:list():add() end, { desc = '[H]arpoon [a]dd file' })
 vim.keymap.set("n", "<leader>hh", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
 vim.keymap.set("n", "<A-1>", function() harpoon:list():select(1) end)
