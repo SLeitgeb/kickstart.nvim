@@ -43,6 +43,12 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
+-- Fix Kitty overriding mah cursor colors ಠ_ಠ
+vim.cmd.hi 'MatchParen guifg=NONE guibg=#CCCCCC gui=bold,underline'
+vim.cmd.hi 'Cursor2 guifg=NONE guibg=#888888'
+vim.cmd.hi 'lCursor2 guifg=NONE guibg=#888888'
+vim.o.guicursor = 'n-v-c:block-Cursor2/lCursor2,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50'
+
 -- I like word wrap, sue me
 vim.o.wrap = true
 vim.o.linebreak = true

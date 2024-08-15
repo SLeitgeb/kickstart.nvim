@@ -11,6 +11,10 @@ local function reload_theme()
   local onedark = require 'onedark'
   onedark.setup(opts)
   onedark.load()
+  vim.cmd.hi 'MatchParen guifg=NONE guibg=#CCCCCC gui=bold,underline'
+  vim.cmd.hi 'Cursor2 guifg=NONE guibg=#888888'
+  vim.cmd.hi 'lCursor2 guifg=NONE guibg=#888888'
+  vim.o.guicursor = 'n-v-c:block-Cursor2/lCursor2,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50'
   require('ibl').setup()
 end
 
