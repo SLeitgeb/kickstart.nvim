@@ -52,13 +52,13 @@ return {
         }
       }
     })
-    if vim.fn.argc() == 0 then
-      vim.api.nvim_create_autocmd("VimEnter", {
-        command = "set cursorline | Neotree position=current",
-      })
-      vim.api.nvim_create_autocmd("BufEnter", {
-        command = "set wrap",
-      })
-    end
+    -- if vim.fn.argc() == 0 then
+    --   vim.api.nvim_create_autocmd("VimEnter", {
+    --     command = "set cursorline | Neotree position=current",
+    --   })
+    --   vim.api.nvim_create_autocmd("BufEnter", {
+    --     command = "set wrap",
+    --   })
+    -- end
   end,
 }
