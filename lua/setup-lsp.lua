@@ -137,17 +137,17 @@ local servers = {
   jsonls = {
     capabilities = jsonls_capabilities,
   },
-  ltex = {
-    settings = {
-      ltex = {
-        language = "en-GB",
-        additionalRules = {
-          -- dependency: `paru -S languagetool-ngrams-en`
-          languageModel = "/usr/share/ngrams/",
-        },
-      },
-    }
-  },
+  -- ltex = {
+  --   settings = {
+  --     ltex = {
+  --       language = "en-GB",
+  --       additionalRules = {
+  --         -- dependency: `paru -S languagetool-ngrams-en`
+  --         languageModel = "/usr/share/ngrams/",
+  --       },
+  --     },
+  --   }
+  -- },
   lua_ls = {
     settings = {
       Lua = {
