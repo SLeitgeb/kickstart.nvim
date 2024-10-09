@@ -131,7 +131,7 @@ local servers = {
   --     organizeImports = true
   --   }
   -- },
-  tsserver = {},
+  -- tsserver = {},
   eslint = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
   jsonls = {
@@ -158,6 +158,7 @@ local servers = {
       },
     }
   },
+  rust_analyzer = {},
   yamlls = {},
 }
 
@@ -183,8 +184,9 @@ require('mason-lspconfig').setup {
       require('lspconfig')[server_name].setup(server)
     end,
     ['rust_analyzer'] = function()
-      local opts = require('settings.rust-tools').get_opts(capabilities)
-      require('rust-tools').setup(opts)
+      return true;
+      -- local opts = require('settings.rust-tools').get_opts(capabilities)
+      -- require('rust-tools').setup(opts)
     end,
   }
 }

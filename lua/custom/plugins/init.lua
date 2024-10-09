@@ -34,7 +34,12 @@ return {
   -- 'nvim-treesitter/playground',
   -- { 'tummetott/unimpaired.nvim',    opts = {} },
   'tpope/vim-unimpaired',
-  { 'simrat39/rust-tools.nvim',     ft = 'rust' },
+  -- { 'simrat39/rust-tools.nvim',     ft = 'rust' },
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^5', -- Recommended
+    lazy = false,   -- This plugin is already lazy
+  },
   { 'mfussenegger/nvim-dap-python', ft = 'python' },
   {
     'saecki/crates.nvim',

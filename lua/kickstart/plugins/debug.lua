@@ -25,7 +25,7 @@ return {
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
     'mfussenegger/nvim-dap-python',
-    'simrat39/rust-tools.nvim',
+    -- 'simrat39/rust-tools.nvim',
   },
   config = function()
     local dap = require 'dap'
