@@ -64,4 +64,5 @@ return {
       require('kitty-scrollback').setup()
     end,
   },
+  'sitiom/nvim-numbertoggle',
 }
