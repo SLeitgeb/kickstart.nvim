@@ -13,14 +13,6 @@ return {
   'tpope/vim-surround',
   'tpope/vim-abolish',
   'tpope/vim-repeat',
-  {
-    'theprimeagen/harpoon',
-    branch = 'harpoon2',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
-    opts = {},
-  },
   'mbbill/undotree',
   'folke/zen-mode.nvim',
   {
@@ -65,4 +57,34 @@ return {
     end,
   },
   'sitiom/nvim-numbertoggle',
+  {
+    'stevearc/oil.nvim',
+    ---@module 'oil'
+    ---@type oil.SetupOpts
+    opts = {
+      default_file_explorer = true,
+    },
+    -- Optional dependencies
+    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+  },
+  {
+    "cbochs/grapple.nvim",
+    dependencies = {
+      { "nvim-tree/nvim-web-devicons", lazy = true }
+    },
+    keys = {
+      { "<leader>ha", "<cmd>Grapple toggle<cr>",         desc = "Tag a file" },
+      { "<leader>hh", "<cmd>Grapple toggle_tags<cr>",    desc = "Toggle tags menu" },
+
+      { "<A-1>",      "<cmd>Grapple select index=1<cr>", desc = "Select first tag" },
+      { "<A-2>",      "<cmd>Grapple select index=2<cr>", desc = "Select second tag" },
+      { "<A-3>",      "<cmd>Grapple select index=3<cr>", desc = "Select third tag" },
+      { "<A-4>",      "<cmd>Grapple select index=4<cr>", desc = "Select fourth tag" },
+      { "<A-5>",      "<cmd>Grapple select index=5<cr>", desc = "Select fifth tag" },
+
+      -- { "<c-s-n>", "<cmd>Grapple cycle_tags next<cr>", desc = "Go to next tag" },
+      -- { "<c-s-p>", "<cmd>Grapple cycle_tags prev<cr>", desc = "Go to previous tag" },
+    },
+  }
 }

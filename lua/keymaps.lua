@@ -22,10 +22,10 @@ vim.keymap.set('n', '<leader>/', ':noh<CR>:<backspace>')
 -- vim.keymap.set('n', '<C-h>', '<C-w>h')
 -- vim.keymap.set('n', '<C-l>', '<C-w>l')
 
-vim.keymap.set('n', '<Leader>Y', [["*y]])
-vim.keymap.set('n', '<Leader>P', [["*p]])
-vim.keymap.set('n', '<Leader>y', [["+y]])
-vim.keymap.set('n', '<Leader>p', [["+p]])
+vim.keymap.set({ 'n', 'v' }, '<Leader>Y', [["*y]])
+vim.keymap.set({ 'n', 'v' }, '<Leader>P', [["*p]])
+vim.keymap.set({ 'n', 'v' }, '<Leader>y', [["+y]])
+vim.keymap.set({ 'n', 'v' }, '<Leader>p', [["+p]])
 
 vim.keymap.set('n', '<F9>', ':Neotree filesystem reveal float<CR>')
 vim.keymap.set('n', '<F10>', ':Neotree toggle left<CR>')
@@ -46,23 +46,24 @@ vim.keymap.set('i', '<S-CR>', '<Esc>O')
 -- harpoon config
 -- local harpoon_mark = require("harpoon.mark")
 -- local harpoon_ui = require("harpoon.ui")
-local harpoon = require("harpoon")
+-- local harpoon = require("harpoon")
 -- harpoon:setup() -- called in lua/custom/plugins/init.lua
 
-vim.keymap.set("n", "<leader>ha", function() harpoon:list():add() end, { desc = '[H]arpoon [a]dd file' })
-vim.keymap.set("n", "<leader>hh", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+-- vim.keymap.set("n", "<leader>ha", function() harpoon:list():add() end, { desc = '[H]arpoon [a]dd file' })
+-- vim.keymap.set("n", "<leader>hh", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
-vim.keymap.set("n", "<A-1>", function() harpoon:list():select(1) end)
-vim.keymap.set("n", "<A-2>", function() harpoon:list():select(2) end)
-vim.keymap.set("n", "<A-3>", function() harpoon:list():select(3) end)
-vim.keymap.set("n", "<A-4>", function() harpoon:list():select(4) end)
-vim.keymap.set("n", "<A-5>", function() harpoon:list():select(5) end)
+-- vim.keymap.set("n", "<A-1>", function() harpoon:list():select(1) end)
+-- vim.keymap.set("n", "<A-2>", function() harpoon:list():select(2) end)
+-- vim.keymap.set("n", "<A-3>", function() harpoon:list():select(3) end)
+-- vim.keymap.set("n", "<A-4>", function() harpoon:list():select(4) end)
+-- vim.keymap.set("n", "<A-5>", function() harpoon:list():select(5) end)
 
 -- Yoink from ThePrimeagen
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
-vim.keymap.set("n", "J", "mzJ`z")
+-- This J remap breaks repeating join lines, e.g. 50J
+-- vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
@@ -83,7 +84,7 @@ vim.keymap.set("n", "<leader>git", vim.cmd.Git)
 -- from: https://vim.fandom.com/wiki/Set_working_directory_to_the_current_file
 vim.keymap.set("n", "<leader>cd", "<cmd>cd %:p:h<CR>:pwd<CR>", { desc = "[c]hange [d]irectory to the current file" })
 
--- I often git the closing bracket key just above Enter when saving a file, writing to a file called `]` instead of the current file.
+-- I often hit the closing bracket key just above Enter when saving a file, writing to a file called `]` instead of the current file.
 -- vim.keymap.set("ca", "w]", "w")
 -- vim.keymap.set("cnorea", "w]", "w")
 vim.cmd.cnoreabbrev("w] w")
@@ -123,5 +124,40 @@ vim.keymap.set("n", "<leader>zn", function()
   require("zen-mode").toggle()
   -- vim.opt.colorcolumn = "0"
 end)
+
+local function format_with_textwidth(width, mode)
+  local saved_tw = vim.api.nvim_get_option_value("textwidth", { scope = 'local' })
+  vim.api.nvim_set_option_value("textwidth", width, { scope = 'local' })
+
+  if mode == "visual" then
+    vim.cmd('normal! gv')   -- reselect last visual selection
+    vim.cmd('normal! gq')   -- use gq since it respects visual range
+  elseif mode == "around paragraph" then
+    vim.cmd("normal! gwap") -- format current paragraph
+  elseif mode == "inside paragraph" then
+    vim.cmd("normal! gwip") -- format current paragraph
+  elseif mode == "line" then
+    vim.cmd("normal! gww")  -- format current paragraph
+  else
+    vim.cmd("normal! gw")   -- fallback
+  end
+
+  vim.api.nvim_set_option_value("textwidth", saved_tw, { scope = 'local' })
+end
+
+vim.keymap.set('n', '<leader>gwap', function()
+  local width = vim.v.count ~= 0 and vim.v.count or 80
+  format_with_textwidth(width, "around paragraph")
+end, { desc = "Format around paragraph with count-based textwidth" })
+
+vim.keymap.set('n', '<leader>gwip', function()
+  local width = vim.v.count ~= 0 and vim.v.count or 80
+  format_with_textwidth(width, "inside paragraph")
+end, { desc = "Format inside paragraph with count-based textwidth" })
+
+vim.keymap.set('n', '<leader>gww', function()
+  local width = vim.v.count ~= 0 and vim.v.count or 80
+  format_with_textwidth(width, "line")
+end, { desc = "Format line with count-based textwidth" })
 
 -- vim: ts=2 sts=2 sw=2 et

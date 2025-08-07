@@ -22,8 +22,17 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
+      -- 'williamboman/mason.nvim',
+      -- 'williamboman/mason-lspconfig.nvim',
+      'mason-org/mason.nvim',
+      {
+        "mason-org/mason-lspconfig.nvim",
+        opts = {},
+        dependencies = {
+          { "mason-org/mason.nvim", opts = {} },
+          "neovim/nvim-lspconfig",
+        },
+      },
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP
@@ -129,7 +138,7 @@ require('lazy').setup({
   -- Fuzzy Finder (files, lsp, etc)
   {
     'nvim-telescope/telescope.nvim',
-    branch = '0.1.x',
+    branch = 'master',
     dependencies = {
       'nvim-lua/plenary.nvim',
       -- Fuzzy Finder Algorithm which requires local dependencies to be built.

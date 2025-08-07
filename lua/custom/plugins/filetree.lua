@@ -17,7 +17,7 @@ return {
     require('neo-tree').setup({
       close_if_last_window = true,
       filesystem = {
-        hijack_netrw_behavior = "open_current",
+        -- hijack_netrw_behavior = "open_current",
         use_libuv_file_watcher = true,
         follow_current_file = {
           enabled = true,
@@ -26,21 +26,6 @@ return {
         filtered_items = {
           hide_dotfiles = false,
         }
-      },
-      components = {
-        harpoon_index = function(config, node, state)
-          local harpoon = require("harpoon")
-          local path = node:get_id()
-          local success, index = pcall(function(p) harpoon:list():get_by_display(p) end, path)
-          if success and index and index > 0 then
-            return {
-              text = string.format(" → %d", index), -- <-- Add your favorite harpoon like arrow here
-              highlight = config.highlight or "NeoTreeDirectoryIcon",
-            }
-          else
-            return {}
-          end
-        end
       },
       renderers = {
         file = {

@@ -93,19 +93,17 @@ jsonls_capabilities.textDocument.completion.completionItem.snippetSupport = true
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  -- clangd = {},
+  clangd = {},
   gopls = {},
+  basedpyright = {},
   -- pylsp = {
   --   -- cmd = { 'pylsp', '~/.local/share/nvim/mason/bin/pylsp' },
   --   -- cmd = { '/home/simon/.local/share/virtualenvs/navman-LwpPW6_1/bin/pylsp' },
-  --   cmd = { 'pylsp' },
+  --   -- cmd = { 'pylsp' },
   --   -- cmd = { vim.fn.system('/usr/bin/env', 'pylsp') },
   --   settings = {
   --     pylsp = {
-  --       -- Install 3rd party plugins with:
-  --       -- :PylspInstall pylsp-mypy pyls-isort python-lsp-black python-lsp-ruff pylsp-rope
-  --       -- try experimenting with auto install:
-  --       -- https://github.com/williamboman/mason-lspconfig.nvim/issues/58#issuecomment-1521738021
+  --       configurationSources = { 'flake8' },
   --       plugins = {
   --         -- formatter options
   --         black = { enabled = true },
@@ -114,13 +112,17 @@ local servers = {
   --         -- import sorting
   --         pyls_isort = { enabled = true },
   --         -- linter options
-  --         pylint = { enabled = true },
+  --         pylint = { enabled = false },
   --         pyflakes = { enabled = false },
   --         pycodestyle = { enabled = false },
-  --         -- type checker
-  --         pylsp_mypy = { enabled = true },
+  --         flake8 = { enabled = true },
   --         -- auto-completion options
-  --         jedi_completion = { fuzzy = true },
+  --         rope_autoimport = { enabled = false },
+  --         rope_completion = { enabled = false },
+  --         jedi_completion = { enabled = true, fuzzy = false },
+  --         -- mccabe = { threshold = 30 },
+  --         mccabe = { enabled = false },
+  --         -- pylsp_mypy = { enabled = false },
   --       },
   --     }
   --   }
@@ -164,7 +166,9 @@ local servers = {
 
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
-require('mason').setup()
+require('mason').setup({
+  PATH = "prepend",
+})
 
 local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {
@@ -173,7 +177,7 @@ vim.list_extend(ensure_installed, {
 
 -- Ensure the servers above are installed
 require('mason-tool-installer').setup {
-  ensure_installed = ensure_installed
+  ensure_installed = ensure_installed,
 }
 
 require('mason-lspconfig').setup {
@@ -181,7 +185,8 @@ require('mason-lspconfig').setup {
     function(server_name)
       local server = servers[server_name] or {}
       server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-      require('lspconfig')[server_name].setup(server)
+      -- require('lspconfig')[server_name].setup(server)
+      -- vim.lsp.config(server_name, server)
     end,
     ['rust_analyzer'] = function()
       return true;
@@ -191,33 +196,69 @@ require('mason-lspconfig').setup {
   }
 }
 
--- Set up pylsp separately to avoid using Mason instance
-require('lspconfig').pylsp.setup {
-  capabilities = capabilities,
-  -- cmd = { 'pylsp' },
-  settings = {
-    pylsp = {
-      plugins = {
-        -- formatter options
-        black = { enabled = false },
-        autopep8 = { enabled = false },
-        yapf = { enabled = false },
-        -- import sorting
-        pyls_isort = { enabled = true },
-        -- linter options
-        pylint = { enabled = false },
-        pyflakes = { enabled = false },
-        pycodestyle = { enabled = false },
-        -- auto-completion options
-        rope_autoimport = { enabled = false },
-        rope_completion = { enabled = false },
-        jedi_completion = { enabled = true, fuzzy = false },
-        mccabe = { threshold = 30 },
-        -- pylsp_mypy = { enabled = false },
-      },
-    }
-  },
-}
+-- -- :PylspInstall pylsp-mypy pyls-isort python-lsp-black python-lsp-ruff pylsp-rope flake8-pyproject
+-- vim.lsp.config('pylsp', {
+--   settings = {
+--     pylsp = {
+--       -- configurationSources = { 'flake8' },
+--       plugins = {
+--         -- formatter options
+--         black = { enabled = true },
+--         autopep8 = { enabled = false },
+--         yapf = { enabled = false },
+--         -- import sorting
+--         pyls_isort = { enabled = true },
+--         -- linter options
+--         pylint = { enabled = false },
+--         pyflakes = { enabled = false },
+--         pycodestyle = { enabled = false },
+--         flake8 = {
+--           enabled = true,
+--           config = '/home/simon/projects/varistar-backend-monorepo/develop/pyproject.toml',
+--         },
+--         -- auto-completion options
+--         rope_autoimport = { enabled = false },
+--         rope_completion = { enabled = false },
+--         jedi_completion = { enabled = true, fuzzy = false },
+--         -- mccabe = { threshold = 30 },
+--         mccabe = { enabled = false },
+--         -- pylsp_mypy = { enabled = false },
+--       },
+--     }
+--   }
+-- })
+
+-- -- Set up pylsp separately to avoid using Mason instance
+-- -- :PylspInstall pylsp-mypy pyls-isort python-lsp-black python-lsp-ruff pylsp-rope flake8-pyproject
+-- require('lspconfig').pylsp.setup {
+--   capabilities = capabilities,
+--   -- cmd = { 'pylsp' },
+--   settings = {
+--     pylsp = {
+--       configurationSources = { 'flake8' },
+--       plugins = {
+--         -- formatter options
+--         black = { enabled = true },
+--         autopep8 = { enabled = false },
+--         yapf = { enabled = false },
+--         -- import sorting
+--         pyls_isort = { enabled = true },
+--         -- linter options
+--         pylint = { enabled = false },
+--         pyflakes = { enabled = false },
+--         pycodestyle = { enabled = false },
+--         flake8 = { enabled = true },
+--         -- auto-completion options
+--         rope_autoimport = { enabled = false },
+--         rope_completion = { enabled = false },
+--         jedi_completion = { enabled = true, fuzzy = false },
+--         -- mccabe = { threshold = 30 },
+--         mccabe = { enabled = false },
+--         -- pylsp_mypy = { enabled = false },
+--       },
+--     }
+--   },
+-- }
 
 -- Setup neovim lua configuration
 require('neodev').setup({

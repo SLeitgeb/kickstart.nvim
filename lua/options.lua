@@ -62,7 +62,8 @@ vim.o.tabstop = 4
 vim.o.scrolloff = 8
 
 -- Highlight column 80 for optimal line length
-vim.o.colorcolumn = "80"
+-- vim.o.colorcolumn = "80"
+-- vim.o.colorcolumn = "+1"
 
 -- Open new split panes to right and bottom, which feels more natural
 vim.o.splitbelow = true
