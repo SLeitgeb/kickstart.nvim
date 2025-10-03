@@ -59,105 +59,105 @@ vim.keymap.set('i', '<S-CR>', '<Esc>O')
 -- vim.keymap.set("n", "<A-5>", function() harpoon:list():select(5) end)
 
 -- Yoink from ThePrimeagen
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
 -- This J remap breaks repeating join lines, e.g. 50J
 -- vim.keymap.set("n", "J", "mzJ`z")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
 
-vim.keymap.set({ "n", "v" }, "<leader>u", vim.cmd.UndotreeToggle)
+vim.keymap.set({ 'n', 'v' }, '<leader>u', vim.cmd.UndotreeToggle)
 
 -- TODO: Map these
 -- vim.keymap.set("x", "<leader>p", [["_dP]])
 -- vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
-vim.keymap.set("n", "<leader>F", "<cmd>Format<CR>")
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>f', vim.lsp.buf.format)
+vim.keymap.set('n', '<leader>F', '<cmd>Format<CR>')
+vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>', { silent = true })
 
-vim.keymap.set("n", "<leader>git", vim.cmd.Git)
+vim.keymap.set('n', '<leader>git', vim.cmd.Git)
 -- from: https://vim.fandom.com/wiki/Set_working_directory_to_the_current_file
-vim.keymap.set("n", "<leader>cd", "<cmd>cd %:p:h<CR>:pwd<CR>", { desc = "[c]hange [d]irectory to the current file" })
+vim.keymap.set('n', '<leader>cd', '<cmd>cd %:p:h<CR>:pwd<CR>', { desc = '[c]hange [d]irectory to the current file' })
 
 -- I often hit the closing bracket key just above Enter when saving a file, writing to a file called `]` instead of the current file.
 -- vim.keymap.set("ca", "w]", "w")
 -- vim.keymap.set("cnorea", "w]", "w")
-vim.cmd.cnoreabbrev("w] w")
-vim.cmd.cnoreabbrev("w[ w")
-vim.cmd.cnoreabbrev("w\\ w")
+vim.cmd.cnoreabbrev 'w] w'
+vim.cmd.cnoreabbrev 'w[ w'
+vim.cmd.cnoreabbrev 'w\\ w'
 
-vim.keymap.set("n", "<leader>zz", function()
-  require("zen-mode").setup {
+vim.keymap.set('n', '<leader>zz', function()
+  require('zen-mode').setup {
     window = {
       width = 90,
       options = {
         number = true,
         relativenumber = true,
-      }
+      },
     },
   }
-  require("zen-mode").toggle()
-  vim.opt.colorcolumn = "0"
+  require('zen-mode').toggle()
+  vim.opt.colorcolumn = '0'
 end)
 
-vim.keymap.set("n", "<leader>zn", function()
-  require("zen-mode").setup {
+vim.keymap.set('n', '<leader>zn', function()
+  require('zen-mode').setup {
     window = {
       width = 80,
       options = {
         number = false,
         relativenumber = true,
-      }
+      },
     },
     plugins = {
       kitty = {
         enabled = true,
-        font = "+4",
+        font = '+4',
       },
     },
   }
-  require("zen-mode").toggle()
+  require('zen-mode').toggle()
   -- vim.opt.colorcolumn = "0"
 end)
 
 local function format_with_textwidth(width, mode)
-  local saved_tw = vim.api.nvim_get_option_value("textwidth", { scope = 'local' })
-  vim.api.nvim_set_option_value("textwidth", width, { scope = 'local' })
+  local saved_tw = vim.api.nvim_get_option_value('textwidth', { scope = 'local' })
+  vim.api.nvim_set_option_value('textwidth', width, { scope = 'local' })
 
-  if mode == "visual" then
-    vim.cmd('normal! gv')   -- reselect last visual selection
-    vim.cmd('normal! gq')   -- use gq since it respects visual range
-  elseif mode == "around paragraph" then
-    vim.cmd("normal! gwap") -- format current paragraph
-  elseif mode == "inside paragraph" then
-    vim.cmd("normal! gwip") -- format current paragraph
-  elseif mode == "line" then
-    vim.cmd("normal! gww")  -- format current paragraph
+  if mode == 'visual' then
+    vim.cmd 'normal! gv'   -- reselect last visual selection
+    vim.cmd 'normal! gq'   -- use gq since it respects visual range
+  elseif mode == 'around paragraph' then
+    vim.cmd 'normal! gwap' -- format current paragraph
+  elseif mode == 'inside paragraph' then
+    vim.cmd 'normal! gwip' -- format current paragraph
+  elseif mode == 'line' then
+    vim.cmd 'normal! gww'  -- format current paragraph
   else
-    vim.cmd("normal! gw")   -- fallback
+    vim.cmd 'normal! gw'   -- fallback
   end
 
-  vim.api.nvim_set_option_value("textwidth", saved_tw, { scope = 'local' })
+  vim.api.nvim_set_option_value('textwidth', saved_tw, { scope = 'local' })
 end
 
 vim.keymap.set('n', '<leader>gwap', function()
   local width = vim.v.count ~= 0 and vim.v.count or 80
-  format_with_textwidth(width, "around paragraph")
-end, { desc = "Format around paragraph with count-based textwidth" })
+  format_with_textwidth(width, 'around paragraph')
+end, { desc = 'Format around paragraph with count-based textwidth' })
 
 vim.keymap.set('n', '<leader>gwip', function()
   local width = vim.v.count ~= 0 and vim.v.count or 80
-  format_with_textwidth(width, "inside paragraph")
-end, { desc = "Format inside paragraph with count-based textwidth" })
+  format_with_textwidth(width, 'inside paragraph')
+end, { desc = 'Format inside paragraph with count-based textwidth' })
 
 vim.keymap.set('n', '<leader>gww', function()
   local width = vim.v.count ~= 0 and vim.v.count or 80
-  format_with_textwidth(width, "line")
-end, { desc = "Format line with count-based textwidth" })
+  format_with_textwidth(width, 'line')
+end, { desc = 'Format line with count-based textwidth' })
 
 -- vim: ts=2 sts=2 sw=2 et

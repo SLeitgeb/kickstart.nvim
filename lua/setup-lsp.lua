@@ -80,8 +80,7 @@ capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp'
 
 -- Enable (broadcasting) snippet capability for completion
 local jsonls_capabilities = vim.lsp.protocol.make_client_capabilities()
-jsonls_capabilities = vim.tbl_deep_extend('force', jsonls_capabilities,
-  require('cmp_nvim_lsp').default_capabilities(jsonls_capabilities))
+jsonls_capabilities = vim.tbl_deep_extend('force', jsonls_capabilities, require('cmp_nvim_lsp').default_capabilities(jsonls_capabilities))
 jsonls_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Enable the following language servers
@@ -96,6 +95,7 @@ local servers = {
   clangd = {},
   gopls = {},
   basedpyright = {},
+  ruff = {},
   -- pylsp = {
   --   -- cmd = { 'pylsp', '~/.local/share/nvim/mason/bin/pylsp' },
   --   -- cmd = { '/home/simon/.local/share/virtualenvs/navman-LwpPW6_1/bin/pylsp' },
@@ -158,7 +158,7 @@ local servers = {
         -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
         diagnostics = { disable = { 'missing-fields' } },
       },
-    }
+    },
   },
   rust_analyzer = {},
   yamlls = {},
@@ -166,9 +166,9 @@ local servers = {
 
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
-require('mason').setup({
-  PATH = "prepend",
-})
+require('mason').setup {
+  PATH = 'prepend',
+}
 
 local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {
@@ -189,12 +189,14 @@ require('mason-lspconfig').setup {
       -- vim.lsp.config(server_name, server)
     end,
     ['rust_analyzer'] = function()
-      return true;
+      return true
       -- local opts = require('settings.rust-tools').get_opts(capabilities)
       -- require('rust-tools').setup(opts)
     end,
-  }
+  },
 }
+
+vim.lsp.enable 'ruff'
 
 -- -- :PylspInstall pylsp-mypy pyls-isort python-lsp-black python-lsp-ruff pylsp-rope flake8-pyproject
 -- vim.lsp.config('pylsp', {
@@ -261,16 +263,16 @@ require('mason-lspconfig').setup {
 -- }
 
 -- Setup neovim lua configuration
-require('neodev').setup({
+require('neodev').setup {
   library = { plugins = { 'nvim-dap-ui' }, types = true },
-})
+}
 
-require('nlspsettings').setup({
-  config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
+require('nlspsettings').setup {
+  config_home = vim.fn.stdpath 'config' .. '/nlsp-settings',
   local_settings_dir = '.nlsp-settings',
   local_settings_root_markers_fallback = { '.git' },
   append_default_schemas = true,
-  loader = 'json'
-})
+  loader = 'json',
+}
 
 -- vim: ts=2 sts=2 sw=2 et
