@@ -95,7 +95,13 @@ local servers = {
   clangd = {},
   gopls = {},
   basedpyright = {},
-  ruff = {},
+  -- ruff = {
+  --   settings = {
+  --     format = {
+  --       preview = true,
+  --     },
+  --   },
+  -- },
   -- pylsp = {
   --   -- cmd = { 'pylsp', '~/.local/share/nvim/mason/bin/pylsp' },
   --   -- cmd = { '/home/simon/.local/share/virtualenvs/navman-LwpPW6_1/bin/pylsp' },
@@ -160,8 +166,8 @@ local servers = {
       },
     },
   },
-  rust_analyzer = {},
-  yamlls = {},
+  -- rust_analyzer = {},
+  -- yamlls = {},
 }
 
 -- mason-lspconfig requires that these setup functions are called in this order
@@ -188,15 +194,16 @@ require('mason-lspconfig').setup {
       -- require('lspconfig')[server_name].setup(server)
       -- vim.lsp.config(server_name, server)
     end,
-    ['rust_analyzer'] = function()
-      return true
-      -- local opts = require('settings.rust-tools').get_opts(capabilities)
-      -- require('rust-tools').setup(opts)
-    end,
+    -- ['rust_analyzer'] = function()
+    --   return true
+    --   -- local opts = require('settings.rust-tools').get_opts(capabilities)
+    --   -- require('rust-tools').setup(opts)
+    -- end,
   },
 }
 
-vim.lsp.enable 'ruff'
+-- vim.lsp.enable 'ruff'
+-- vim.lsp.enable 'rust_analyzer'
 
 -- -- :PylspInstall pylsp-mypy pyls-isort python-lsp-black python-lsp-ruff pylsp-rope flake8-pyproject
 -- vim.lsp.config('pylsp', {

@@ -29,6 +29,8 @@ vim.keymap.set({ 'n', 'v' }, '<Leader>p', [["+p]])
 
 vim.keymap.set('n', '<F9>', ':Neotree filesystem reveal float<CR>')
 vim.keymap.set('n', '<F10>', ':Neotree toggle left<CR>')
+-- vim.keymap.set('n', '<F9>', ':Oil<CR>')
+-- vim.keymap.set('n', '<F10>', ':Oil .<CR>')
 
 -- Use X in visual mode to search for selected text
 -- taken from: http://vimdoc.sourceforge.net/htmldoc/visual.html#visual-search
@@ -77,7 +79,7 @@ vim.keymap.set({ 'n', 'v' }, '<leader>u', vim.cmd.UndotreeToggle)
 
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set({ 'n', 'v' }, '<leader>f', vim.lsp.buf.format)
-vim.keymap.set('n', '<leader>F', '<cmd>Format<CR>')
+vim.keymap.set('n', '<leader>F', '<cmd>FormatLsp<CR>')
 vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>', { silent = true })
 
 vim.keymap.set('n', '<leader>git', vim.cmd.Git)
@@ -130,16 +132,16 @@ local function format_with_textwidth(width, mode)
   vim.api.nvim_set_option_value('textwidth', width, { scope = 'local' })
 
   if mode == 'visual' then
-    vim.cmd 'normal! gv'   -- reselect last visual selection
-    vim.cmd 'normal! gq'   -- use gq since it respects visual range
+    vim.cmd 'normal! gv' -- reselect last visual selection
+    vim.cmd 'normal! gq' -- use gq since it respects visual range
   elseif mode == 'around paragraph' then
     vim.cmd 'normal! gwap' -- format current paragraph
   elseif mode == 'inside paragraph' then
     vim.cmd 'normal! gwip' -- format current paragraph
   elseif mode == 'line' then
-    vim.cmd 'normal! gww'  -- format current paragraph
+    vim.cmd 'normal! gww' -- format current paragraph
   else
-    vim.cmd 'normal! gw'   -- fallback
+    vim.cmd 'normal! gw' -- fallback
   end
 
   vim.api.nvim_set_option_value('textwidth', saved_tw, { scope = 'local' })

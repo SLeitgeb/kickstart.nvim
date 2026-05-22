@@ -13,6 +13,14 @@ return {
   'tpope/vim-surround',
   'tpope/vim-abolish',
   'tpope/vim-repeat',
+  -- {
+  --   'theprimeagen/harpoon',
+  --   branch = 'harpoon2',
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --   },
+  --   opts = {},
+  -- },
   'mbbill/undotree',
   'folke/zen-mode.nvim',
   {
@@ -29,7 +37,7 @@ return {
   -- { 'simrat39/rust-tools.nvim',     ft = 'rust' },
   {
     'mrcjkb/rustaceanvim',
-    version = '^5', -- Recommended
+    version = '^6', -- Recommended
     lazy = false,   -- This plugin is already lazy
   },
   { 'mfussenegger/nvim-dap-python', ft = 'python' },
@@ -37,13 +45,14 @@ return {
     'saecki/crates.nvim',
     ft = { 'rust', 'toml' },
     config = function(_, opts)
-      local crates = require('crates')
+      local crates = require 'crates'
       crates.setup(opts)
       crates.show()
     end,
   },
   'theHamsta/nvim-dap-virtual-text',
   'farmergreg/vim-lastplace',
+  -- 'github/copilot.vim',
   {
     'mikesmithgh/kitty-scrollback.nvim',
     enabled = true,
@@ -63,28 +72,29 @@ return {
     ---@type oil.SetupOpts
     opts = {
       default_file_explorer = true,
+      -- columns = {},
     },
     -- Optional dependencies
-    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    dependencies = { { 'echasnovski/mini.icons', opts = {} } },
     -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
   },
   {
-    "cbochs/grapple.nvim",
+    'cbochs/grapple.nvim',
     dependencies = {
-      { "nvim-tree/nvim-web-devicons", lazy = true }
+      { 'nvim-tree/nvim-web-devicons', lazy = true },
     },
     keys = {
-      { "<leader>ha", "<cmd>Grapple toggle<cr>",         desc = "Tag a file" },
-      { "<leader>hh", "<cmd>Grapple toggle_tags<cr>",    desc = "Toggle tags menu" },
+      { '<leader>ha', '<cmd>Grapple toggle<cr>',         desc = 'Tag a file' },
+      { '<leader>hh', '<cmd>Grapple toggle_tags<cr>',    desc = 'Toggle tags menu' },
 
-      { "<A-1>",      "<cmd>Grapple select index=1<cr>", desc = "Select first tag" },
-      { "<A-2>",      "<cmd>Grapple select index=2<cr>", desc = "Select second tag" },
-      { "<A-3>",      "<cmd>Grapple select index=3<cr>", desc = "Select third tag" },
-      { "<A-4>",      "<cmd>Grapple select index=4<cr>", desc = "Select fourth tag" },
-      { "<A-5>",      "<cmd>Grapple select index=5<cr>", desc = "Select fifth tag" },
+      { '<A-1>',      '<cmd>Grapple select index=1<cr>', desc = 'Select first tag' },
+      { '<A-2>',      '<cmd>Grapple select index=2<cr>', desc = 'Select second tag' },
+      { '<A-3>',      '<cmd>Grapple select index=3<cr>', desc = 'Select third tag' },
+      { '<A-4>',      '<cmd>Grapple select index=4<cr>', desc = 'Select fourth tag' },
+      { '<A-5>',      '<cmd>Grapple select index=5<cr>', desc = 'Select fifth tag' },
 
       -- { "<c-s-n>", "<cmd>Grapple cycle_tags next<cr>", desc = "Go to next tag" },
       -- { "<c-s-p>", "<cmd>Grapple cycle_tags prev<cr>", desc = "Go to previous tag" },
     },
-  }
+  },
 }

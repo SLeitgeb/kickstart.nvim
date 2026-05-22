@@ -32,11 +32,12 @@ return {
           -- apply whatever logic you want (in this example, we'll only use null-ls)
           return client.name == 'null-ls'
         end,
+        async = false,
         bufnr = bufnr,
       }
     end
     local on_attach = function(client, bufnr)
-      if client.supports_method 'textDocument/formatting' then
+      if client:supports_method 'textDocument/formatting' then
         vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
         vim.api.nvim_create_autocmd('BufWritePre', {
           group = augroup,
@@ -53,9 +54,20 @@ return {
       sources = {
         null_ls.builtins.formatting.stylua,
         -- null_ls.builtins.completion.spell,
-        null_ls.builtins.formatting.isort,
-        null_ls.builtins.formatting.black,
+        null_ls.builtins.formatting.isort.with {
+          prefer_local = '.venv/bin',
+        },
+        null_ls.builtins.formatting.black.with {
+          -- prefer_local = ".local/share/uv/tools/black/bin",
+          prefer_local = '.venv/bin',
+        },
         require 'none-ls.formatting.jq',
+        -- null_ls.builtins.formatting.sqlfluff.with {
+        --   extra_args = { 'fix', '--disable-progress-bar', '--dialect', 'postgres', '-n', '-' },
+        -- },
+        null_ls.builtins.formatting.sqruff.with {
+          extra_args = { '--dialect', 'postgres' },
+        },
       },
     }
   end,

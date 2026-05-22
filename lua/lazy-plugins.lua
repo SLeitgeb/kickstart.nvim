@@ -26,11 +26,11 @@ require('lazy').setup({
       -- 'williamboman/mason-lspconfig.nvim',
       'mason-org/mason.nvim',
       {
-        "mason-org/mason-lspconfig.nvim",
+        'mason-org/mason-lspconfig.nvim',
         opts = {},
         dependencies = {
-          { "mason-org/mason.nvim", opts = {} },
-          "neovim/nvim-lspconfig",
+          { 'mason-org/mason.nvim', opts = {} },
+          'neovim/nvim-lspconfig',
         },
       },
       'WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -63,7 +63,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',   opts = {} },
+  { 'folke/which-key.nvim', opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -87,17 +87,23 @@ require('lazy').setup({
         -- Actions
         map('n', '<leader>hs', gs.stage_hunk, { desc = 'Stage hunk' })
         map('n', '<leader>hr', gs.reset_hunk, { desc = 'Reset hunk' })
-        map('v', '<leader>hs', function() gs.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end,
-          { desc = 'Stage hunk' })
-        map('v', '<leader>hr', function() gs.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end,
-          { desc = 'Reset hunk' })
+        map('v', '<leader>hs', function()
+          gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
+        end, { desc = 'Stage hunk' })
+        map('v', '<leader>hr', function()
+          gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
+        end, { desc = 'Reset hunk' })
         map('n', '<leader>hS', gs.stage_buffer, { desc = 'Stage buffer' })
         map('n', '<leader>hu', gs.undo_stage_hunk, { desc = 'Undo hunk stage' })
         map('n', '<leader>hR', gs.reset_buffer, { desc = 'Reset staged buffer' })
-        map('n', '<leader>hb', function() gs.blame_line { full = true } end, { desc = 'Blame line' })
+        map('n', '<leader>hb', function()
+          gs.blame_line { full = true }
+        end, { desc = 'Blame line' })
         map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = 'Toggle line blame' })
         map('n', '<leader>hd', gs.diffthis, { desc = 'Diff hunk' })
-        map('n', '<leader>hD', function() gs.diffthis('~') end, { desc = 'Diff against HEAD' })
+        map('n', '<leader>hD', function()
+          gs.diffthis '~'
+        end, { desc = 'Diff against HEAD' })
         map('n', '<leader>td', gs.toggle_deleted, { desc = 'Toggle deleted' })
         map('n', '<leader>hp', gs.preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
 
@@ -130,9 +136,9 @@ require('lazy').setup({
   -- "gc" to comment visual regions/lines
   {
     'numToStr/Comment.nvim',
-    opts = {
-      ignore = '^$'
-    }
+    -- opts = {
+    --   ignore = '^$',
+    -- },
   },
 
   -- Fuzzy Finder (files, lsp, etc)
@@ -159,11 +165,18 @@ require('lazy').setup({
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    branch = 'main',
     dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      'nvim-treesitter/nvim-treesitter-refactor',
+      {
+        'nvim-treesitter/nvim-treesitter-textobjects',
+        branch = 'main',
+      },
+      -- 'nvim-treesitter/nvim-treesitter-refactor',
     },
-    build = ':TSUpdate',
+    build = function()
+      require('nvim-treesitter').update()
+    end,
   },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
